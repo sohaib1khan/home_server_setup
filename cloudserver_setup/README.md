@@ -1,13 +1,4 @@
----
-title: 'How My infra is setup '
-updated: 2023-02-13 21:54:33Z
-created: 2023-02-13 04:45:48Z
-latitude: 40.71278370
-longitude: -74.00594130
-altitude: 0.0000
----
-
-"This guide will demonstrate my personal home lab setup and my ongoing efforts to improve it. I like to experiment with new technologies and incorporate them into my infrastructure whenever possible. Currently, I am utilizing containers (docker/podman) to host my favorite applications.
+This guide will demonstrate my personal home lab setup and my ongoing efforts to improve it. I like to experiment with new technologies and incorporate them into my infrastructure whenever possible. Currently, I am utilizing containers (docker/podman) to host my favorite applications.
 
 ## Server Configuration:
 
