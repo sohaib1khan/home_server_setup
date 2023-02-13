@@ -1,4 +1,4 @@
-"This guide will demonstrate my personal home lab setup and my ongoing efforts to improve it. I like to experiment with new technologies and incorporate them into my infrastructure whenever possible. Currently, I am utilizing containers (docker/podman) to host my favorite applications.
+This guide will demonstrate my personal home lab setup and my ongoing efforts to improve it. I like to experiment with new technologies and incorporate them into my infrastructure whenever possible. Currently, I am utilizing containers (docker/podman) to host my favorite applications.
 
 ## Server Configuration:
 
@@ -6,7 +6,7 @@ I have a dedicated PC running Proxmox operating system. This setup provides enou
 
 ## Setting up the Virtual Machine:
 
-Once the VM is set up on the Proxmox server, obtain its IP address. Then, log into your router and open ports 80, 443, and 51820. These ports will be used to host Wireguard (port 51820) and webapps (ports 443/80). I have created Ansible playbooks (found at https://github.com/sohaib1khan/Ansible_To_Go/tree/master/Playbook2-Update-install-apps) to install applications such as docker, Kubernetes, and Helm, which can serve as inspiration or be modified to your specific needs.
+Once the VM is set up on the Proxmox server, obtain its IP address. Then, log into your router and open ports 80, 443, and 51820. These ports will be used to host Wireguard (port 51820) and webapps (ports 443/80). I have created Ansible playbooks (found at [https://github.com/sohaib1khan/Ansible\_To\_Go/tree/master/Playbook2-Update-install-apps](https://github.com/sohaib1khan/Ansible_To_Go/tree/master/Playbook2-Update-install-apps)) to install applications such as docker, Kubernetes, and Helm, which can serve as inspiration or be modified to your specific needs.
 
 ## Installing Applications:
 
@@ -23,3 +23,5 @@ I use Ansible playbooks and bash scripts to automate maintenance tasks. For exam
 5.  Copying all directories from `/home/cloudserver
 
 To run playbook for each VM, i created a small bash script that uses ansible-vault to take care of any root/sudo tasks without any user interaction. Once i have created playbook for each VM and a script that runs those VMs, Then i create another 'master' script that calls each of the VM's playbook script into 1 script. I use that master in a cronjob so that ways all playbooks gets run from a one script.
+
+![homelab-setup](https://github.com/sohaib1khan/home_server_setup/blob/main/cloudserver_setup/imgs/home_lab.png)
