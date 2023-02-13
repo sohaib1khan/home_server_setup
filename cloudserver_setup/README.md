@@ -24,3 +24,4 @@ I use Ansible playbooks and bash scripts to automate maintenance tasks. For exam
 
 To run playbook for each VM, i created a small bash script that uses ansible-vault to take care of any root/sudo tasks without any user interaction. Once i have created playbook for each VM and a script that runs those VMs, Then i create another 'master' script that calls each of the VM's playbook script into 1 script. I use that master in a cronjob so that ways all playbooks gets run from a one script.
 
+![homelab-setup](https://github.com/sohaib1khan/home_server_setup/blob/main/cloudserver_setup/imgs/home_lab.png)
