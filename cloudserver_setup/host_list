@@ -1,0 +1,2 @@
+[hostworkstation]
+192.168.1.300 ansible_user=cloudserver 

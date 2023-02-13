@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Get the current date for backup file name
+current_date=$(date +%Y-%m-%d)
+
+# Set the remote server information
+remote_server=REMOTE_SERVER1@192.168.1.100
+remote_server2=REMOTE_SERVER2@192.168.1.200
+remote_directory=/REMOTE/SERVER/PATH/
+remote_directory2=/REMOTE/SERVER/PATH/
+
+# Set the local backup directory where docker volumes mounted
+local_backup_dir=/WHERE/DOCKER/VOLUMES/MOUNTED
+
+# Get a list of all containers
+containers=$(docker ps -a --format '{{.Names}}')
+
+# clean up existing backup
+rm -rf /home/cloudserver/backup/*
+
+
+# Stop all containers
+for container in $containers
+do
+  echo "Stopping container $container..."
+  docker stop $container
+done
+
+# Loop through each container and backup
+for container in $containers
+do
+  echo "Backing up container $container to $local_backup_dir/$container-$current_date.tar.gz..."
+  docker export $container | gzip > "$local_backup_dir/$container-$current_date.tar.gz"
+done
+
+# Delete existing backup on remote server
+echo "Deleting existing backup on $remote_server:$remote_directory..."
+ssh $remote_server "rm -rf $remote_directory/container_backup*"
+ssh $remote_server2 "rm -rf $remote_directory2/container_backup*"
+
+# Transfer backup to remote server using rsync
+echo "Transferring backup to $remote_server:$remote_directory..."
+rsync -avz $local_backup_dir $remote_server:$remote_directory
+rsync -avz $local_backup_dir $remote_server2:$remote_directory2
+
+# Transfer user directory to remote server using rsync
+echo "Transferring user directory to $remote_server:$remote_directory..."
+rsync -avz /home/cloudserver/ $remote_server:$remote_directory
+rsync -avz /home/cloudserver/ $remote_server2:$remote_directory2
+
+# Restart all containers
+for container in $containers
+do
+  echo "Restarting container $container..."
+  docker start $container
+done
+
+echo "Backup complete."
