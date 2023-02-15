@@ -1,0 +1,51 @@
+---
+- name: Update and Install Packages
+  hosts: all
+
+  tasks:
+    - name: Dpkg configure
+      become: true
+      shell: dpkg --configure -a
+
+    - name: Update all packages to the latest version
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Docker
+      become: true
+      shell: curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
+    - name: Start and enable Docker service
+      become: true
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install additional packages
+      become: true
+      apt:
+        name:
+          - ranger
+          - net-tools
+          - vim
+
+    - name: Install docker-compose
+      become: true
+      shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+
+    - name: Install lazydocker
+      become: true
+      shell: curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+    - name: Final clean up
+      become: true
+      apt:
+        autoclean: yes
+        autoremove: yes
+
+    - name: Reboot system
+      become: true
+      reboot:
