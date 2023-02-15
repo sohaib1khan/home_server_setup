@@ -56,4 +56,4 @@ MYSQL_PASSWORD=SOMESECRETPASSWORD
 ```
 
 
-![Nextcloud](../imgs/nextcloud.png)
+![Nextcloud](https://github.com/sohaib1khan/home_server_setup/blob/main/imgs/nextcloud.png)
