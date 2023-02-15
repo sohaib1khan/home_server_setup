@@ -21,4 +21,4 @@ To run this file, save it as a `docker-compose.yaml` file, then open a terminal 
 
 docker-compose up
 
-!\[homer\](https://raw.githubusercontent.com//bastienwirtz/homer/main/public/logo.png)
+![homer](https://raw.githubusercontent.com//bastienwirtz/homer/main/public/logo.png)

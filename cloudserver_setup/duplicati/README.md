@@ -19,5 +19,8 @@ Here is a breakdown of the file:
 
 In this case, the Duplicati service is set up to use the latest LinuxServer.io Duplicati image. The container will be named "duplicati" and will run with the PUID and PGID set to 1000. The timezone is set to "United States/New York". The optional `CLI_ARGS` environment variable can be used to pass additional arguments to Duplicati. The volumes will be mounted at `/config`, `/backups`, and `/source` respectively. Port 8200 will be mapped to the host machine. Finally, the `unless-stopped` restart policy means that the container will be restarted unless it is explicitly stopped.
 
+To run this file, save it as a `docker-compose.yaml` file, then open a terminal and navigate to the directory where the file is located. Then, run the following command:
+
+docker-compose up
 
 ![Duplicati](https://www.duplicati.com/images/duplicati-fb-share-v1.png)
