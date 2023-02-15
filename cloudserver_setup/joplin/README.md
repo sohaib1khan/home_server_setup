@@ -8,6 +8,4 @@ The `app` service is based on the latest version of the Joplin Server Docker ima
 
 To run this Docker Compose file, you need to first save it as a `docker-compose.yml` file in a local directory. Then navigate to the directory in a terminal and run the command `docker-compose up -d` to start the containers in the background. The option `-d` runs the containers in detached mode. You can use `docker-compose logs -f` to see the logs of the containers, and `docker-compose down` to stop the containers.
 
-```scss
 ![joplin](https://joplinapp.org/images/home-top-img-2x.webp)
-```
