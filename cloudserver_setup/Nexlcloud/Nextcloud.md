@@ -54,3 +54,6 @@ The .env file should look something like this. 
 MYSQL_ROOT_PASSWORD=SOMESECRETPASSWORD
 MYSQL_PASSWORD=SOMESECRETPASSWORD
 ```
+
+
+![Nextcloud](../imgs/nextcloud.png)
