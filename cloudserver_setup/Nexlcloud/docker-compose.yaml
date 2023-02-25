@@ -16,6 +16,11 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
+      - TRUSTED_PROXIES=yourdomain.com
+      - OVERWRITECLIURL=https://yourdomain.com
+      - OVERWRITEPROTOCOL=https
+      - NEXTCLOUD_TRUSTED_DOMAINS=yourdomain.com
+      - OVERWRITEHOST=yourdomain.com
 
   app:
     image: nextcloud

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Set the directories to copy
+dirs_to_copy=(backup_script bitwarden Downloads duplicati homer_dashboard joplin lazydocker monitoring nextcloud nginx_proxy_mgr portainer wireguard)
+
+# Set the remote server details
+remote_user="cntserver"
+remote_host="192.168.1.249"
+remote_path="/home/cntserver"
+
+# Loop through each directory and copy it to the remote server
+for dir in "${dirs_to_copy[@]}"
+do
+  echo "Copying $dir to $remote_user@$remote_host:$remote_path"
+  scp -r "$dir" "$remote_user@$remote_host:$remote_path"
+done
