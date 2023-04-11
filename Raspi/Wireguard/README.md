@@ -78,7 +78,7 @@ This should enable you to run Docker commands without encountering the "Cannot c
 
 ### Deploying Wireguard:
 
-To deploy Wireguard, you can use a preconfigured docker-compose file which can be found on my GitHub page [[Wireguard docker-compose](https://github.com/sohaib1khan/home_server_setup/blob/main/cloudserver_setup/wireguard/docker-compose.yaml)](https://github.com/sohaib1khan/home_server_setup/blob/main/cloudserver_setup/wireguard/docker-compose.yaml) or you can find it below.
+To deploy Wireguard, you can use a preconfigured docker-compose file which can be found on my GitHub page [Wireguard docker-compose](https://github.com/sohaib1khan/home_server_setup/blob/main/cloudserver_setup/wireguard/docker-compose.yaml) or you can find it below.
 
 To keep things organized, create a separate directory called "wireguard," move into that new directory, and then create a new file called `docker-compose.yaml`. Inside that file, copy and paste the following content:
 
