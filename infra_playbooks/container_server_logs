@@ -1,0 +1,39 @@
+Date: Sun Aug 27 00:00:01 EDT 2023
+
+System Update & Maintenance
+
+    Machine Address: 192.168.1.160
+    System Update:
+        Upgrade: All packages are up to date.
+        Information: To verify the status of security fixes, use the pro fix command. For instance, to check a recent Ruby vulnerability, use pro fix USN-6219-1. Details
+    Container Backup:
+        Stopped Containers:
+            wireguard-1
+            helixx_nextcloud-app-1
+            helixx_nextcloud-db-1
+            container_watcher-watchtower-1
+            wiki-wiki-1
+            wiki-db-1
+            joplin-server
+            joplin-server-db-1
+            npm-proxy-app-1
+            vaultwarden
+            portainer_portainer_1
+        Backup Locations: /home/cloudmachine/backup_script/containers_backup/
+        Transfer Status: Successfully transferred backup and user directories.
+        Restarted Containers:
+            wireguard-1
+            helixx_nextcloud-app-1
+            helixx_nextcloud-db-1
+            container_watcher-watchtower-1
+            wiki-wiki-1
+            wiki-db-1
+            joplin-server
+            joplin-server-db-1
+            npm-proxy-app-1
+            vaultwarden
+            portainer_portainer_1
+        Backup Completion: Backup process was completed successfully.
+    Reboot: Failed to reboot machine. System became unreachable via SSH during the process.
+
+End Time: Sun Aug 27 00:08:51 EDT 2023

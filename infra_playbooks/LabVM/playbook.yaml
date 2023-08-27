@@ -1,0 +1,22 @@
+---
+-
+
+# This playbook is to update RHEL distro using dnf package manager
+
+  name:  Perform system update and cleanup
+  hosts: all
+
+  tasks:
+  - name: update all packages
+    dnf:
+      name: "*"
+      state: latest
+  - name: Autoremove unneeded packages installed as dependencies
+    dnf:
+      autoremove: yes
+
+  - command: sudo dnf update -y && sudo  dnf upgrade -y && sudo dnf autoremove && sudo  dnf clean all && brew update && brew upgrade 
+  - name: Backing up data
+    ansible.builtin.include_tasks: ./tasks/backup.yaml
+  # - name:  Reboot server 
+  #   command: sudo reboot 

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+echo
+echo "Starting playbook run script at $(date)"
+# Set the file path variable
+vault_key_file="path/to/your/.ansible_vault_key"
+
+# NOTE: Replace the password file path when running this script
+host_pass_file="path/to/your/infra_playbooks/some_directory/.key"
+
+# Ensure file is already encrypted before running the full script 
+ansible-vault encrypt --vault-password-file "$vault_key_file" "$host_pass_file" 2>/dev/null
+ansible-vault decrypt --vault-password-file "$vault_key_file" "$host_pass_file"
+
+
+# If secret is decrypted then run playbook
+if [ $? -eq 0 ]
+then
+ansible-playbook path/to/your/infra_playbooks/some_directory/playbook.yaml -i path/to/your/infra_playbooks/some_directory/host_list --vault-password-file $vault_key_file --become-password-file $host_pass_file
+    else
+   echo 'could not decrypt the secret'
+   fi
+
+sleep 5s
+
+# Encypt the secret again
+if [ $? -eq 0 ]
+then
+    ansible-vault encrypt --vault-password-file $vault_key_file $host_pass_file
+    else
+   echo 'could not encrypt the secret'
+   fi
+echo
+echo
+echo "System update was done today on $(date)"

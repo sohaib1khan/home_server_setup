@@ -1,0 +1,59 @@
+Starting playbook run script at Sat Aug 26 23:59:01 EDT 2023
+
+Updating Media Server...
+
+PLAY [Update] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [REDACTED_IP_1]
+
+TASK [Upgrade all packages to the latest version and also remove garbage] ******
+changed: [REDACTED_IP_1]
+
+TASK [Rebooting Machine] *******************************************************
+fatal: [REDACTED_IP_1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Shared connection to REDACTED_IP_1 closed.", "unreachable": true}
+
+PLAY RECAP *********************************************************************
+REDACTED_IP_1              : ok=2    changed=1    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+Updating LabVM...
+
+PLAY [Perform system update and cleanup] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [REDACTED_IP_2]
+
+TASK [update all packages] *****************************************************
+ok: [REDACTED_IP_2]
+
+TASK [Autoremove unneeded packages installed as dependencies] ******************
+ok: [REDACTED_IP_2]
+
+TASK [command] *****************************************************************
+changed: [REDACTED_IP_2]
+
+TASK [Backing up data] *********************************************************
+included: /REDACTED_PATH/infra_playbooks/LabVM/tasks/backup.yaml for REDACTED_IP_2
+
+TASK [performing backup] *******************************************************
+changed: [REDACTED_IP_2]
+
+PLAY RECAP *********************************************************************
+REDACTED_IP_2              : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Backing up infra code....
+sending incremental file list
+./
+REDACTED_DIR_1
+REDACTED_DIR_2
+LabVM/
+LabVM/REDACTED_FILE_1
+media_server/
+media_server/REDACTED_FILE_2
+
+sent 13,676 bytes  received 10,996 bytes  49,344.00 bytes/sec
+total size is 3,301,183  speedup is 133.80
+
+
+System update was done today on Sat Aug 26 23:59:55 EDT 2023

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# The data directory for Nextcloud server is located at /var/www/nextcloud/data/<my_username>/files.
+# The file was uploaded to this directory using SCP.
+# After uploading the file, the owner and group were changed to www-data.
+# To re-index the data directory, the command to use is 'occ' in the /var/www/nextcloud directory.
+# The command should be run as the www-data user and should include the files:scan argument along with the --path option to specify the directory for the user.
+# The command to run is:
+
+# bash
+
+# sudo -u www-data ./occ files:scan --path="/<my_username>/files"
+
+# Once the command is executed, it will display the scan progress for the user.
+# After the scan is complete, the file should be visible in the web UI and can be securely shared with the client.
+
+
+# Perform these actions on remote/nextcloud server 
+
+# Change ownership of DATA folder
+sudo chown -R www-data:www-data /home/webserver/helixx_nextcloud
+
+# Scan for new files
+docker exec -u 33 container_name_or_id ./occ files:scan --user=USERNAME

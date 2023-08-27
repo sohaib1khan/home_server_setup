@@ -1,0 +1,13 @@
+---
+-
+  name: Update
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Upgrade all packages to the latest version and also remove garbage 
+      shell: sudo apt update  && sleep 5s && sudo apt upgrade -y && sleep 5s && sudo apt autoclean -y && sleep 5s && sudo apt autoremove -y
+
+    # mandatory rebootonly enable this  if you want to system to reboot.
+    - name: Rebooting Machine
+      shell: sudo reboot

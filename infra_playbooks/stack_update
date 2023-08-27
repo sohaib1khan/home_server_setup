@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -o errexit
+
+echo
+echo "Starting playbook run script at $(date)"
+
+USERS=/path/to/user_directory/
+cd
+cd /path/to/user_directory/
+# echo 'CommonVMs upgrade started...'
+# cd /path/to/user_directory/infra_playbooks/commonVMs/ && ./comm_upgrade
+# if [ $? -eq 0 ];
+# then
+# echo 'Updating DevOps VM..'
+# cd 
+# cd /path/to/user_directory/
+# cd /path/to/user_directory/infra_playbooks/devops_vm/ && ./run_playbook.sh
+# cd /path/to/user_directory/
+# fi
+
+if [ $? -eq 0 ];
+then
+echo
+echo 'Updating Media Server...'
+sleep 5s
+cd /path/to/user_directory/
+cd /path/to/user_directory/infra_playbooks/media_server/
+./run_playbook.sh
+fi
+
+# cd /path/to/user_directory/
+
+# if [ $? -eq 0 ];
+# then
+# echo
+# echo
+# echo 'Updating workstation...'
+# cd /path/to/user_directory/infra_playbooks/workstation/
+# ./run_playbook.sh
+# echo
+# fi
+echo
+cd
+cd /path/to/user_directory/
+
+if [ $? -eq 0 ];
+then
+echo 'Updating LabVM...'
+cd /path/to/user_directory/infra_playbooks/LabVM/
+./run_playbook.sh
+sleep 3s
+fi
+
+echo 'Backing up infra code....'
+rsync -ravx /path/to/user_directory/infra_playbooks/ remote_user@remote_ip:/path/to/backup/location/
+echo
+echo
+echo "System update was done today on $(date)"

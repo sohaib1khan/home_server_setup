@@ -1,0 +1,27 @@
+---
+-
+  name: Update
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Upgrade all packages to the latest version and also remove garbage
+      shell: sudo apt update && sleep 5s && sudo apt upgrade -y && sleep 5s && sudo apt autoclean -y && sleep 5s && sudo apt autoremove -y
+      register: upgrade_result
+
+    - name: Display the upgrade output
+      debug:
+        var: upgrade_result.stdout_lines
+
+    - name: performing container backup
+      shell: /usr/sbin/bkup_container_and_data
+      register: backup_result
+
+    - name: Display the backup output
+      debug:
+        var: backup_result.stdout_lines
+
+
+    # mandatory reboot only enable this  if you want to system to reboot.
+    - name: Rebooting Machine
+      shell: sudo reboot

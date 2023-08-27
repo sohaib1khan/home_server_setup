@@ -1,2 +1,2 @@
 [node]
-192.168.1.300 ansible_user=cloudserver 
+192.168.1.300 ansible_user=NODENAME 

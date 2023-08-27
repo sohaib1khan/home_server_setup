@@ -1,0 +1,22 @@
+---
+-
+  name: Perform system update and cleanup
+  hosts: all
+  become: true
+
+  tasks:
+    - name: update all packages to the latest version
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Checking system update
+      apt:
+        upgrade: dist
+    # Final tasks
+    - name:  final clean up
+      shell: apt update -y && apt upgrade -y && apt autoclean -y && apt autoremove -y
+
+    # mandatory rebootonly enable this  if you want to system to reboot.
+    #  - name: Rebooting Machine(s)
+    #  shell: sudo reboot

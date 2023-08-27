@@ -1,0 +1,5 @@
+---
+-
+  become: false
+  name: performing backup
+  shell: /usr/bin/bkuphost

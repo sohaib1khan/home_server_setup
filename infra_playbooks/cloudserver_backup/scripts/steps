@@ -1,0 +1,11 @@
+1. stop the containers before backing up and then restart after the backup is completed
+
+3. backup docker containers and mounted volumes with current date to `/home/cloudserver/backup_script/containers_backup`  
+
+4. first delete existing backup from remote server  and  copy the backup using rsync  to a remote server `root@192.168.1.63:/mnt/pve/NAS-HD-3TB/clouderserver`
+
+5. Then copy backup from `/home/cloudserver/backup_script/containers_backup` and transfer it remote server `root@192.168.1.63:/mnt/pve/NAS-HD-3TB/clouderserver`
+
+6. copy all the directory from `/home/cloudserver/` to remote `root@192.168.1.63:/mnt/pve/NAS-HD-3TB/clouderserver` using rsync 
+
+7. create any directory that does not exist on remote or locally

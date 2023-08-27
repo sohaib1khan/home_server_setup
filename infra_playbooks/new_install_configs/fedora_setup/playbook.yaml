@@ -1,0 +1,51 @@
+---
+- name: Fedora Server 36 Setup
+  hosts: all
+  become: true
+  tasks:
+    - name: Update system
+      dnf:
+        update_cache: yes
+        name: '*'
+        state: latest
+
+    - name: Install packages
+      dnf:
+        name:
+          - tree
+        state: latest
+    - name: dnf plugin
+      shell: sudo dnf install dnf-plugin-system-upgrade -y
+      # Install Docker
+    - name: Update dnf repository
+      shell: sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+    - name:  Configure docker repo baseurl
+      shell: sudo sed -i '3,/baseurl=/c\baseurl=https://download.docker.com/linux/centos/7/$basearch/stable' /etc/yum.repos.d/docker-ce.repo
+    - name: Install containerd
+      shell: sudo dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.9-3.1.el7.x86_64.rpm
+    - name: Install docker cli
+      shell: sudo dnf -y install docker
+    - name: Install docker compose
+      shell: sudo dnf install docker-compose -y
+
+    - name: Add current user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        group: docker
+        append: yes
+    - name: Starting and enabling docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Enable service docker, and not touch the state
+      service:
+        name: docker
+        enabled: yes        
+
+
+    - name: Install Lazydocker
+      shell: curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+    - name: Reboot
+      reboot:
