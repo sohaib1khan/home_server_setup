@@ -2,58 +2,38 @@
 
 set -o errexit
 
-echo
-echo "Starting playbook run script at $(date)"
+# User-configurable variables
+BASE_PATH="/path/to/your/base_directory"
+LOGFILE="${BASE_PATH}/path/to/your/logfile.log"
+JUMPBOX_PLAYBOOK_DIR="${BASE_PATH}/path/to/jumpbox/playbook/directory"
+MEDIA_SERVER_PLAYBOOK_DIR="${BASE_PATH}/path/to/media/server/playbook/directory"
+LAB_VM_PLAYBOOK_DIR="${BASE_PATH}/path/to/lab/vm/playbook/directory"
+RSYNC_DESTINATION="user@hostname:/path/to/backup/location"
 
-USERS=/path/to/user_directory/
-cd
-cd /path/to/user_directory/
-# echo 'CommonVMs upgrade started...'
-# cd /path/to/user_directory/infra_playbooks/commonVMs/ && ./comm_upgrade
-# if [ $? -eq 0 ];
-# then
-# echo 'Updating DevOps VM..'
-# cd 
-# cd /path/to/user_directory/
-# cd /path/to/user_directory/infra_playbooks/devops_vm/ && ./run_playbook.sh
-# cd /path/to/user_directory/
-# fi
+# Begin script execution
+echo "Starting playbook run script at $(date)" | tee -a $LOGFILE
+echo "----------------------------------------" | tee -a $LOGFILE
 
-if [ $? -eq 0 ];
-then
-echo
-echo 'Updating Media Server...'
-sleep 5s
-cd /path/to/user_directory/
-cd /path/to/user_directory/infra_playbooks/media_server/
-./run_playbook.sh
-fi
+cd $BASE_PATH
 
-# cd /path/to/user_directory/
+echo 'JumpboxVM maintenance started...' | tee -a $LOGFILE
+cd $JUMPBOX_PLAYBOOK_DIR && ./run_playbook.sh &>> $LOGFILE
 
-# if [ $? -eq 0 ];
-# then
-# echo
-# echo
-# echo 'Updating workstation...'
-# cd /path/to/user_directory/infra_playbooks/workstation/
-# ./run_playbook.sh
-# echo
-# fi
-echo
-cd
-cd /path/to/user_directory/
+echo 'JumpboxVM maintenance completed moving on....' | tee -a $LOGFILE
+sleep 2s
 
-if [ $? -eq 0 ];
-then
-echo 'Updating LabVM...'
-cd /path/to/user_directory/infra_playbooks/LabVM/
-./run_playbook.sh
+echo 'Performing maintenance on Media Server...' | tee -a $LOGFILE
+cd $MEDIA_SERVER_PLAYBOOK_DIR
+./run_playbook.sh &>> $LOGFILE
+
+echo 'Performing maintenance on LabVM...' | tee -a $LOGFILE
+cd $LAB_VM_PLAYBOOK_DIR
+./run_playbook.sh &>> $LOGFILE
+
 sleep 3s
-fi
 
-echo 'Backing up infra code....'
-rsync -ravx /path/to/user_directory/infra_playbooks/ remote_user@remote_ip:/path/to/backup/location/
-echo
-echo
-echo "System update was done today on $(date)"
+echo 'Backing up infra code....' | tee -a $LOGFILE
+rsync -ravx ${BASE_PATH}/path/to/infra/playbooks/ $RSYNC_DESTINATION &>> $LOGFILE
+
+echo "----------------------------------------" | tee -a $LOGFILE
+echo "System update was done today on $(date)" | tee -a $LOGFILE
