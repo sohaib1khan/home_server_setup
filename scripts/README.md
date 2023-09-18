@@ -22,7 +22,7 @@ Or
 $ wget -O- https://bit.ly/glances | /bin/bash
 ```
 
-For more details, you can check out the official Glances documentation [[here](https://nicolargo.github.io/glances/?ref=itsfoss.com)](https://nicolargo.github.io/glances/?ref=itsfoss.com).
+For more details, you can check out the official Glances documentation [here](https://nicolargo.github.io/glances/?ref=itsfoss.com).
 
 #### Option 2: Install via PyPI
 
