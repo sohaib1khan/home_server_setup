@@ -40,7 +40,7 @@ Once Glances is installed, you can use the following script to monitor your Rasp
 #!/bin/bash
 
 # Fetch CPU Usage using Glances
-CPU_USAGE=$(timeout 2 glances --stdout cpu.user | grep "cpu.user" | cut -d: -f2 | tr -d ' ')
+CPU_USAGE=$(timeout 2 /usr/local/bin/glances --stdout cpu.user | grep "cpu.user" | cut -d: -f2 | tr -d ' ')
 
 # Fetch Memory Usage in a human-readable format
 MEMORY_USAGE=$(free | awk '/Mem:/ {printf "%.2f", $3/$2 * 100.0}')
