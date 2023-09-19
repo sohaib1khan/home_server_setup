@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fetch CPU Usage using Glances
-CPU_USAGE=$(timeout 2 glances --stdout cpu.user | grep "cpu.user" | cut -d: -f2 | tr -d ' ')
+CPU_USAGE=$(timeout 4 /usr/local/bin/glances --stdout cpu.user | grep "cpu.user" | cut -d: -f2 | tr -d ' ')
 
 # Fetch Memory Usage in a human-readable format
 MEMORY_USAGE=$(free | awk '/Mem:/ {printf "%.2f", $3/$2 * 100.0}')
@@ -11,4 +11,4 @@ CONTAINER_STATUS=$(sudo docker ps --format "{{.Names}} - {{.Status}}")
 
 # Send the alert with the gathered data
 MESSAGE="Current CPU Usage: $CPU_USAGE% and Memory Usage: $MEMORY_USAGE%. Docker Containers: $CONTAINER_STATUS"
-curl "https://URL_TO_GOTIFY/message?token=YOUR_TOKEN" -F "title=Raspberry Pi Alert" -F "message=$MESSAGE" -F "priority=10"
+curl "https://gotify.helixx.cloud/message?token=ATxfzTM2OxKfXJm" -F "title=Raspberry Pi Alert" -F "message=$MESSAGE" -F "priority=10"
