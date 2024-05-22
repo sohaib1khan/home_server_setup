@@ -7,10 +7,18 @@ services:
     volumes:
       - $PWD/ollama:/root/.ollama
     devices:
-      - /dev/kfd:/dev/kfd
-      - /dev/dri:/dev/dri
+      # Uncomment the appropriate lines depending on your GPU
+      - /dev/kfd:/dev/kfd         # For AMD GPUs
+      - /dev/dri:/dev/dri         # For AMD GPUs
+      #- /dev/nvidia0:/dev/nvidia0  # For NVIDIA GPUs
+      #- /dev/nvidiactl:/dev/nvidiactl  # For NVIDIA GPUs
+      #- /dev/nvidia-uvm:/dev/nvidia-uvm  # For NVIDIA GPUs
+      #- /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools  # For NVIDIA GPUs
     environment:
-      - HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION-11.0.0}
+      # Uncomment the appropriate line depending on your GPU
+      - HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION-11.0.0}  # For AMD GPUs
+      #- NVIDIA_VISIBLE_DEVICES=all  # For NVIDIA GPUs
+      #- NVIDIA_DRIVER_CAPABILITIES=compute,utility  # For NVIDIA GPUs
     tty: true
     restart: unless-stopped
     pull_policy: always
