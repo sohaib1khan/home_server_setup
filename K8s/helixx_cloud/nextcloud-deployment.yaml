@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+      - name: nextcloud
+        image: nextcloud:production
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 3Gi
+          limits:
+            cpu: 2000m
+            memory: 5Gi
+        volumeMounts:
+        - name: nextcloud-data
+          mountPath: /var/www/html
+        env:
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: MYSQL_PASSWORD
+        - name: MYSQL_DATABASE
+          value: "nextcloud"
+        - name: MYSQL_USER
+          value: "nextcloud"
+        - name: MYSQL_HOST
+          value: "mariadb"
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          value: "cloud.helixx.cloud"
+      volumes:
+      - name: nextcloud-data
+        hostPath:
+          path: /home/k8server/helixx_cloud/nextcloud
+          type: Directory
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.1.242
+  ports:
+    - port: 8080
+      targetPort: 80
+  selector:
+    app: nextcloud
